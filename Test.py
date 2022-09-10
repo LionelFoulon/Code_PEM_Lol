@@ -12,7 +12,11 @@ def recup_info(name_player,last_game):
     driver.get(f"https://euw.op.gg/summoners/euw/{name_player}")
     update_last_game_sur_excel = True
     #print(name_player)
-    # ATTETION si il y a moins de *20* games enregistrees sur OPGG le code bug parce que la liste n'est pas asser grande
+    # ATTENTION si il y a moins de *20* games enregistrees sur OPGG le code bug parce que la liste n'est pas asser grande
+    # ATTENTION si la personne n'a pas joue depuis longtemps, la liste est vide et le programme plante
+    # si la liste "driver.find_elements_by_class_name('participants')" est vide alors on break la boucle car il n'y a pas de game
+    if not driver.find_elements_by_class_name('participants'):
+        return ()
     for i in range(10):
         #print(driver.find_elements_by_class_name('time-stamp')[i].text)        # date de la game
         #if driver.find_elements_by_class_name('time-stamp')[i].text == "a day ago":    # si la game s'est deroulee il y a un jour
